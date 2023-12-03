@@ -9,13 +9,13 @@ body {
   .gallery {
     list-style-type: none;
     display: flex;
-    flex-wrap: wrap;
-    padding: 0; /* Забираємо внутрішні відступи у списку */
+    gap: 10px;
   }
   
   .gallery-item {
-    flex: 1 0 calc(33.33% - 10px); /* Розрахунок ширини елемента з урахуванням внутрішніх відступів */
-    margin: 5px; /* Додаємо зовнішні відступи між елементами галереї */
+    width: 360px;
+    height: 200px;
+    flex-shrink: 0;
   }
   
   .gallery-link {
@@ -25,6 +25,7 @@ body {
   
   .gallery-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
   }
+  
