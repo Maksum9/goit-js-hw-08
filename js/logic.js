@@ -64,44 +64,39 @@ const images = [
   },
 ];
   
-const galleryContainer = document.querySelector('.gallery');
-let lightboxInstance;
+const linkGallery = document.querySelector('.gallery');
 
-const createGalleryItem = ({ preview, original, description }) => `
-  <li class="gallery-item">
-    <a class="gallery-link" href="${original}">
-      <img
-        class="gallery-image"
-        src="${preview}"
-        data-source="${original}"
-        alt="${description}"
-      />
-    </a>
-  </li>
-`;
+const mapImages = images
+  .map(({ preview, original, description }) => `
+    <li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+        <img
+          class="gallery-image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+        />
+      </a>
+    </li>
+  `)
+  .join('');
 
-const galleryHTML = images.map(createGalleryItem).join('');
-galleryContainer.innerHTML = galleryHTML;
+linkGallery.innerHTML = mapImages;
 
-const handleClick = (e) => {
-  if (e.target.nodeName !== 'IMG') {
-    return;
+linkGallery.addEventListener('click', onImageClick);
+
+function onImageClick(e) {
+  e.preventDefault();
+
+  if (e.target.nodeName === 'IMG') {
+    const instance = basicLightbox.create(`<img src="${e.target.dataset.source}" width="800" height="600">`);
+    instance.show();
   }
+}
 
-  const greatImage = e.target.dataset.source;
-  console.log('Great image: ', greatImage);
-
-  lightboxInstance = basicLightbox.create(`<img src="${greatImage}" alt="Large image" width="1112px" height="640px">`);
-  lightboxInstance.show();
-
-  document.addEventListener('keydown', handleEscape);
-};
-
-const handleEscape = (e) => {
-  if (e.code === 'Escape' && lightboxInstance) {
-    lightboxInstance.close();
-    document.removeEventListener('keydown', handleEscape);
+linkGallery.addEventListener('keydown', (e) => {
+  if (e.code === 'Escape') {
+    basicLightbox.close();
   }
-};
-
-galleryContainer.addEventListener('click', handleClick);
+});
+console.log('10');
