@@ -1,8 +1,4 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
   }
   
@@ -13,7 +9,6 @@ body {
   }
   
   .gallery-item {
-    height: 1100px;
     flex-shrink: 0;
   }
   
