@@ -89,14 +89,16 @@ function onImageClick(e) {
   e.preventDefault();
 
   if (e.target.nodeName === 'IMG') {
-    const instance = basicLightbox.create(`<img src="${e.target.dataset.source}" width="800" height="600">`);
+    const instance = basicLightbox.create(`<img src="${e.target.dataset.source}" width="800" height="600">`, {
+      onShow: () => {document.addEventListener('keydown',onEcsPress)},
+      onclose: () => {document.removeEventListener('keydown',onEcsPress)}
+    })
     instance.show();
+    function onEcsPress(e) {
+      if (e.code === "Escape") {
+        instance.close();
+      }
+      }
   }
 }
 
-linkGallery.addEventListener('keydown', (e) => {
-  if (e.code === 'Escape') {
-    basicLightbox.close();
-  }
-});
-console.log('10');
